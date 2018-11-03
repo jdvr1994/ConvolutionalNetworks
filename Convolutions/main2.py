@@ -51,15 +51,34 @@ for f in range(image.size[0]):
 		imgArray[f][c] = color
 
 # Convolution with convolve Function
-convResult = abs(convolve(imgArray, filterBlur))
+sizeResultadoX = imgArray.shape[0] - filterBlur.shape[0] + 1
+sizeResultadoY = imgArray.shape[1] - filterBlur.shape[1] + 1
+convResult = np.zeros( (sizeResultadoX, sizeResultadoY) )
 
-# Create a new Image
+print(sizeResultadoX)
+print(imgArray.shape[0])
+print(convResult.shape[0])
+
+
+for cr in range(convResult.shape[1]):
+	for fr in range(convResult.shape[0]):
+		suma = 0
+		for c in range(filterBlur.shape[1]):
+			for f in range (filterBlur.shape[0]):
+
+				fIma = f+fr
+				cIma = c + cr
+				suma = suma + (imgArray[fIma][cIma] * filterBlur[f][c])
+
+		convResult[fr][cr] = suma
+
+# Create a new Image 1920x1080
 myImg = Image.new('RGB', (image.size[0], image.size[1]), "black")
 # Create the pixel map
 pixels = myImg.load()
 
-for i in range(myImg.size[0]):    # for every row:
-    for j in range(myImg.size[1]):    # For every col
+for i in range(convResult.shape[0]):    # for every row:
+    for j in range(convResult.shape[1]):    # For every col
         pixels[i, j] = (int(convResult[i][j]), int(convResult[i][j]), int(convResult[i][j])) # Put the convoltion result into myImg
 
 myImg.show()

@@ -1,9 +1,6 @@
 from PIL import Image
 
-print ("hola bienvenido")
-a = [1, 2, 3]
-a.append(4)
-print (a)
+print ("Load, Create and Show Images Script")
 
 # ---------------------------------------
 # Load Image from file
@@ -17,6 +14,7 @@ pixelsLoad = image.load()
 r, g, b = rgb_im.getpixel((200, 300))
 print(r, g, b)
 
+# Get and Print values (r,g,b) of the pixel 200,300
 print(pixelsLoad[200, 300][0])
 print(pixelsLoad[200, 300][1])
 print(pixelsLoad[200, 300][2])
@@ -32,11 +30,11 @@ pixels = myImg.load()
 
 for i in range(myImg.size[0]):    # for every col:
     for j in range(myImg.size[1]):    # For every row
-        c = (pixelsLoad[i, j][0] +
-             pixelsLoad[i, j][1] +
-             pixelsLoad[i, j][2]) / 3
+        grayScaleValue = (pixelsLoad[i, j][0] +
+                          pixelsLoad[i, j][1] +
+                          pixelsLoad[i, j][2]) / 3
 
-        pixels[i, j] = (c, c, c)
+        pixels[i, j] = (grayScaleValue, grayScaleValue, grayScaleValue)
 
 myImg.show()
 
